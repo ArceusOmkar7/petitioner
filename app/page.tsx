@@ -1,7 +1,8 @@
 import { SiteHeader } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
-import { FeaturedCauses } from "@/components/featured-causes";
+import { FeaturedCauses } from "@/components/FeaturedPetitions";
 import Link from "next/link";
+import FooterSection from "@/components/FooterSection";
 
 export default function Home() {
   return (
@@ -11,22 +12,7 @@ export default function Home() {
         <HeroSection />
         <FeaturedCauses />
       </main>
-      <footer className="mt-auto py-6 bg-primary text-white">
-        <div className="container text-center">
-          <p>© 2024 PetitionPro. Making change happen.</p>
-          <div className="mt-4 space-x-4">
-            <Link href="/about" className="hover:underline">
-              About
-            </Link>
-            <Link href="/privacy" className="hover:underline">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="hover:underline">
-              Terms of Service
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <FooterSection />
     </div>
   );
 }

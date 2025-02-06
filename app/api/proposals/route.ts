@@ -1,40 +1,33 @@
 import prisma from "@/app/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
-  const fetchedUser = await prisma.users.findMany();
+export async function GET() {
+  const fetchedProposals = await prisma.proposals.findMany();
 
-  if (!fetchedUser) {
-    return NextResponse.json({ error: "Users not found" }, { status: 404 });
+  if (!fetchedProposals) {
+    return NextResponse.json({ error: "Proposals not found" }, { status: 404 });
   }
 
-  return NextResponse.json(fetchedUser, { status: 200 });
+  return NextResponse.json(fetchedProposals, { status: 200 });
 }
 
 export async function POST(req: NextRequest) {
-  /* 
-        name: str
-        email: str
-        password: str
-        role: enum: 'citizen', 'admin'
-    */
-
-  const { name, email, password, role } = await req.json();
+  const { user_id, title, description, category } = await req.json();
 
   try {
-    const newUser = await prisma.users.create({
+    const newProposal = await prisma.proposals.create({
       data: {
-        name,
-        email,
-        password,
-        role,
+        user_id,
+        title,
+        description,
+        category,
       },
     });
 
-    return NextResponse.json(newUser, { status: 201 });
-  } catch (error) {
+    return NextResponse.json(newProposal, { status: 201 });
+  } catch (e) {
     return NextResponse.json(
-      { error: "Failed to create user" },
+      { error: "Failed to create proposal", e },
       { status: 500 }
     );
   }

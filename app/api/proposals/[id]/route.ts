@@ -1,26 +1,26 @@
 import prisma from "@/app/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const userId = parseInt(params.id, 10);
+export async function GET({ params }: { params: { id: string } }) {
+  const proposalId = parseInt(params.id, 10);
 
-  if (isNaN(userId)) {
-    return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
+  if (isNaN(proposalId)) {
+    return NextResponse.json({ error: "Invalid proposal ID" }, { status: 400 });
   }
 
   try {
-    const fetchedUser = await prisma.users.findUnique({
-      where: { id: userId },
+    const fetchedProposal = await prisma.proposals.findUnique({
+      where: { id: proposalId },
     });
 
-    if (!fetchedUser) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    if (!fetchedProposal) {
+      return NextResponse.json(
+        { error: "Proposal not found" },
+        { status: 404 }
+      );
     }
 
-    return NextResponse.json(fetchedUser, { status: 200 });
+    return NextResponse.json(fetchedProposal, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },

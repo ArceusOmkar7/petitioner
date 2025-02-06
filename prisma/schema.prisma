@@ -30,6 +30,7 @@ model proposals {
   created_at  DateTime?          @default(now()) @db.Timestamp(0)
   comments    comments[]
   users       users              @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "proposals_ibfk_1")
+  reviews     reviews[]
   votes       votes[]
 
   @@index([user_id], map: "user_id")
@@ -44,6 +45,7 @@ model users {
   created_at DateTime?   @default(now()) @db.Timestamp(0)
   comments   comments[]
   proposals  proposals[]
+  reviews    reviews[]
   votes      votes[]
 }
 
@@ -58,6 +60,20 @@ model votes {
 
   @@index([proposal_id], map: "proposal_id")
   @@index([user_id], map: "user_id")
+}
+
+model reviews {
+  review_id   Int              @id @default(autoincrement())
+  official_id Int
+  proposal_id Int
+  decision    reviews_decision
+  remarks     String?          @db.Text
+  reviewed_at DateTime?        @default(now()) @db.Timestamp(0)
+  users       users            @relation(fields: [official_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "reviews_ibfk_1")
+  proposals   proposals        @relation(fields: [proposal_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "reviews_ibfk_2")
+
+  @@index([official_id], map: "official_id")
+  @@index([proposal_id], map: "proposal_id")
 }
 
 enum votes_vote {
@@ -84,4 +100,10 @@ enum proposals_status {
   rejected
   in_progress @map("in-progress")
   completed
+}
+
+enum reviews_decision {
+  approved
+  rejected
+  needs_revision @map("needs revision")
 }

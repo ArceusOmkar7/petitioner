@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model comments {
+  id          Int       @id @default(autoincrement())
+  user_id     Int
+  proposal_id Int
+  content     String    @db.Text
+  created_at  DateTime? @default(now()) @db.Timestamp(0)
+  users       users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "comments_ibfk_1")
+  proposals   proposals @relation(fields: [proposal_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "comments_ibfk_2")
+
+  @@index([proposal_id], map: "proposal_id")
+  @@index([user_id], map: "user_id")
+}
+
+model proposals {
+  id          Int                @id @default(autoincrement())
+  user_id     Int
+  title       String             @db.VarChar(255)
+  description String             @db.Text
+  category    proposals_category
+  status      proposals_status?  @default(pending)
+  created_at  DateTime?          @default(now()) @db.Timestamp(0)
+  comments    comments[]
+  users       users              @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "proposals_ibfk_1")
+  votes       votes[]
+
+  @@index([user_id], map: "user_id")
+}
+
+model users {
+  id         Int         @id @default(autoincrement())
+  name       String      @db.VarChar(255)
+  email      String      @unique(map: "email") @db.VarChar(255)
+  password   String      @db.VarChar(255)
+  role       users_role
+  created_at DateTime?   @default(now()) @db.Timestamp(0)
+  comments   comments[]
+  proposals  proposals[]
+  votes      votes[]
+}
+
+model votes {
+  id          Int        @id @default(autoincrement())
+  user_id     Int
+  proposal_id Int
+  vote        votes_vote
+  created_at  DateTime?  @default(now()) @db.Timestamp(0)
+  users       users      @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "votes_ibfk_1")
+  proposals   proposals  @relation(fields: [proposal_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "votes_ibfk_2")
+
+  @@index([proposal_id], map: "proposal_id")
+  @@index([user_id], map: "user_id")
+}
+
+enum votes_vote {
+  upvote
+  downvote
+}
+
+enum proposals_category {
+  infrastructure
+  health
+  education
+  environment
+  other
+}
+
+enum users_role {
+  citizen
+  admin
+}
+
+enum proposals_status {
+  pending
+  approved
+  rejected
+  in_progress @map("in-progress")
+  completed
+}

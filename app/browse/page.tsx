@@ -1,7 +1,13 @@
-import { SiteHeader } from "@/components/site-header"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
-import Image from "next/image"
+import { SiteHeader } from "@/components/Navbar";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import Image from "next/image";
 
 export default function BrowsePage() {
   const petitions = [
@@ -22,7 +28,8 @@ export default function BrowsePage() {
     {
       id: 3,
       title: "Education for All",
-      description: "Ensure equal access to quality education for underprivileged children",
+      description:
+        "Ensure equal access to quality education for underprivileged children",
       supporters: 12543,
       goal: 15000,
     },
@@ -43,11 +50,12 @@ export default function BrowsePage() {
     {
       id: 6,
       title: "Affordable Housing",
-      description: "Advocate for more affordable housing options in urban areas",
+      description:
+        "Advocate for more affordable housing options in urban areas",
       supporters: 11234,
       goal: 15000,
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -59,7 +67,9 @@ export default function BrowsePage() {
             <Card key={petition.id}>
               <CardHeader className="p-0">
                 <Image
-                  src={`/placeholder.svg?height=200&width=400&text=${encodeURIComponent(petition.title)}`}
+                  src={`/placeholder.svg?height=200&width=400&text=${encodeURIComponent(
+                    petition.title
+                  )}`}
                   alt={petition.title}
                   width={400}
                   height={200}
@@ -68,8 +78,13 @@ export default function BrowsePage() {
               </CardHeader>
               <CardContent className="p-6">
                 <CardTitle className="mb-2">{petition.title}</CardTitle>
-                <CardDescription className="mb-4">{petition.description}</CardDescription>
-                <Progress value={(petition.supporters / petition.goal) * 100} className="mb-2" />
+                <CardDescription className="mb-4">
+                  {petition.description}
+                </CardDescription>
+                <Progress
+                  value={(petition.supporters / petition.goal) * 100}
+                  className="mb-2"
+                />
                 <div className="flex justify-between text-sm text-muted-foreground">
                   <span>{petition.supporters.toLocaleString()} supporters</span>
                   <span>Goal: {petition.goal.toLocaleString()}</span>
@@ -80,6 +95,5 @@ export default function BrowsePage() {
         </div>
       </main>
     </div>
-  )
+  );
 }
-

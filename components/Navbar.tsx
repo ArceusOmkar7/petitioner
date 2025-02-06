@@ -1,19 +1,19 @@
-import Link from "next/link"
-import { Search } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="text-2xl font-bold text-primary">
-          PetitionPro
+          Petition
         </Link>
         <nav className="hidden md:flex items-center space-x-6">
           <Link href="/browse" className="text-sm font-medium">
             Browse
           </Link>
-          <Link href="/my-petitions" className="text-sm font-medium">
+          <Link href="/proposals" className="text-sm font-medium">
             My Petitions
           </Link>
         </nav>
@@ -33,6 +33,5 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }
-

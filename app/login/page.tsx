@@ -1,9 +1,16 @@
-import { SiteHeader } from "@/components/site-header"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import Link from "next/link"
+import { SiteHeader } from "@/components/Navbar";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Link from "next/link";
 
 export default function LoginPage() {
   return (
@@ -13,7 +20,9 @@ export default function LoginPage() {
         <Card className="w-[350px]">
           <CardHeader>
             <CardTitle>Log in</CardTitle>
-            <CardDescription>Enter your email and password to log in</CardDescription>
+            <CardDescription>
+              Enter your email and password to log in
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form>
@@ -24,7 +33,11 @@ export default function LoginPage() {
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" placeholder="Enter your password" />
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Enter your password"
+                  />
                 </div>
               </div>
             </form>
@@ -41,6 +54,5 @@ export default function LoginPage() {
         </Card>
       </main>
     </div>
-  )
+  );
 }
-

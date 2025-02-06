@@ -1,7 +1,7 @@
-import { SiteHeader } from "@/components/site-header"
-import { HeroSection } from "@/components/hero-section"
-import { FeaturedCauses } from "@/components/featured-causes"
-import Link from "next/link"
+import { SiteHeader } from "@/components/Navbar";
+import { HeroSection } from "@/components/HeroSection";
+import { FeaturedCauses } from "@/components/featured-causes";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -28,6 +28,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
-

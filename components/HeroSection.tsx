@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { MapPin } from "lucide-react"
+import Link from "next/link"
 
 export function HeroSection() {
   return (
@@ -16,9 +17,11 @@ export function HeroSection() {
             Join millions of people taking action and creating positive change. Start your petition today.
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Button size="lg" className="bg-primary hover:bg-primary/90">
-              Start a petition
-            </Button>
+            <Link href={"/proposals"} >
+              <Button size="lg" className="bg-primary hover:bg-primary/90">
+                Start a petition
+              </Button>
+            </Link>
             <Button size="lg" variant="outline" className="gap-2">
               <MapPin className="h-4 w-4" />
               Discover local causes
